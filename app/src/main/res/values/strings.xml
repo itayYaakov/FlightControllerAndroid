@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">FlightGearController</string>
+    <string name="port_hint">Enter your port</string>
+    <string name="ip_hint">Enter your IPv4 address</string>
+    <string name="connect_button_text">Connect</string>
+    <string name="throttle_text">throttle</string>
+    <string name="rudder_text">rudder</string>
+    <string name="itay_Test">Itay Is the best</string>
 </resources>
