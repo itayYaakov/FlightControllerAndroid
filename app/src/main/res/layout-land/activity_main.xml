@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.example.flightgearcontroller.model.Model" />
+
+        <variable
+            name="viewModel"
+            type="com.example.flightgearcontroller.viewModel.ViewModel" />
+    </data>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -30,6 +41,7 @@
                 android:digits="0123456789."
                 android:ems="10"
                 android:hint="@string/ip_hint"
+                android:text="@={viewModel.ip}"
                 android:importantForAutofill="no"
                 android:inputType="number|numberDecimal"
                 android:textAlignment="center"
@@ -46,6 +58,7 @@
                 android:digits="0123456789"
                 android:ems="10"
                 android:hint="@string/port_hint"
+                android:text="@={viewModel.port}"
                 android:importantForAutofill="no"
                 android:inputType="phone"
                 android:maxLength="5"
@@ -69,12 +82,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/coulmn2"
+            android:id="@+id/column2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
 
             <RelativeLayout
@@ -116,7 +128,7 @@
                         android:id="@+id/textThrottleValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="{@model.throttleSeekBarValue}"
+                        android:text=""
                         android:textAlignment="center"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/verticalSeekBarWrapper"
@@ -141,7 +153,7 @@
                             android:min="-100"
                             android:progress="0"
                             android:splitTrack="false"
-                            app:seekBarRotation="CW90" />
+                            app:seekBarRotation="CW270" />
                     </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
                 </LinearLayout>
@@ -168,7 +180,7 @@
                     android:id="@+id/textRudderValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="{@model.rudderSeekBarValue}"
+                    android:text=""
                     android:textAlignment="center"
                     android:textStyle="bold" />
 
@@ -193,4 +205,4 @@
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

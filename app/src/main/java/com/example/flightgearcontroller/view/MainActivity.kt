@@ -5,48 +5,36 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.example.flightgearcontroller.databinding.ActivityMainBinding
 import com.example.flightgearcontroller.R
+import com.example.flightgearcontroller.model.Model
+import com.example.flightgearcontroller.viewModel.ViewModel
+import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
 
 
 class MainActivity : AppCompatActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-//    }
 
     var relativeLayoutJoystick: RelativeLayout? = null
-    var inner: ImageView? = null
-    var outer: ImageView? = null
-
     var joystick: JoystickView? = null
+    var sliders: SlidersView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//
-//        relativeLayoutJoystick = findViewById<View>(R.id.relativeLayoutJoystick) as RelativeLayout
-////
-////         joystick = Joystick(applicationContext, relativeLayoutJoystick!!, R.drawable.joystick_in)
-//        joystick = JoystickView(applicationContext)
-//        joystick!!.setOffset(80)
-//        joystick!!.setStickSize(150, 150)
-////        joystick!!.setLayoutSize(850, 850)
-//        joystick!!.setLayoutSize(250, 250)
-//        joystick!!.setMinimumDistance(20f)
-//        joystick!!.createJoystick(relativeLayoutJoystick!!)
 
-//         relativeLayoutJoystick!!.setOnTouchListener { arg0, arg1 -> joystick!!.drawStick(arg1)
-//        //     if (arg1.action == MotionEvent.ACTION_DOWN || arg1.action == MotionEvent.ACTION_MOVE) {
-//        //         val x = "X : " + joystick!!.getX().toString()
-//        //         val y = "Y : " + joystick!!.getY().toString()
-//        //         val angle = "Angle : " + joystick!!.getAngle().toString()
-//        //         val distance = "Distance : " + joystick!!.getDistance().toString()
-//        //     } else if (arg1.action == MotionEvent.ACTION_UP) {
-//
-//             }
-//             true;
-//         }
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val model = Model()
+        val viewModel = ViewModel()
+        binding.model = model
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        binding.executePendingBindings()
+
+        sliders = SlidersView(this)
     }
 
     override fun onStart() {
