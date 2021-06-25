@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
     <data>
+
+        <import type="com.example.flightgearcontroller.model.Model" />
+
+        <import type="com.example.flightgearcontroller.viewModel.ViewModel" />
 
         <variable
             name="model"
@@ -18,193 +21,197 @@
     </data>
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/column1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/ip_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:digits="0123456789."
-                android:ems="10"
-                android:hint="@string/ip_hint"
-                android:importantForAutofill="no"
-                android:text="@={viewModel.ip}"
-                android:inputType="number|numberDecimal"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/port"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:digits="0123456789"
-                android:ems="10"
-                android:hint="@string/port_hint"
-                android:text="@={viewModel.port}"
-                android:importantForAutofill="no"
-                android:inputType="phone"
-                android:maxLength="5"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ip_address" />
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/connect_button_text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/port" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/column2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/column1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:paddingHorizontal="10dp">
+                android:layout_weight="0"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/ip_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:digits="0123456789."
+                    android:ems="10"
+                    android:hint="@string/ip_hint"
+                    android:text="@={viewModel.ip}"
+                    android:importantForAutofill="no"
+                    android:inputType="number|numberDecimal"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/port"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:digits="0123456789"
+                    android:ems="10"
+                    android:hint="@string/port_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="phone"
+                    android:maxLength="5"
+                    android:text="@={viewModel.port}"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ip_address" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/connect_button_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/port" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/column2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical">
 
 
                 <RelativeLayout
-                    android:id="@+id/relativeLayoutJoystick"
-                    android:layout_width="300dp"
-                    android:layout_height="300dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/joystick_out" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:paddingHorizontal="10dp">
 
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayoutJoystick"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/joystick_out" />
+
+
+                    <LinearLayout
+                        android:id="@+id/throttleLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/textThrottle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/throttle_text"
+                            android:textAlignment="center"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/textThrottleValue"
+                            app:layout_constraintEnd_toEndOf="@+id/textThrottleValue"
+                            app:layout_constraintStart_toStartOf="@+id/textThrottleValue" />
+
+                        <TextView
+                            android:id="@+id/textThrottleValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textAlignment="center"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/verticalSeekBarWrapper"
+                            app:layout_constraintEnd_toEndOf="@+id/verticalSeekBarWrapper"
+                            app:layout_constraintStart_toStartOf="@+id/verticalSeekBarWrapper" />
+
+                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                            android:id="@+id/verticalSeekBarWrapper"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/scroll_bar_portrait_size"
+                            android:layout_marginBottom="24dp"
+                            app:layout_constraintBottom_toTopOf="@+id/seekBarRudder"
+                            app:layout_constraintEnd_toStartOf="@+id/seekBarRudder"
+                            app:layout_constraintHorizontal_bias="0.447"
+                            app:layout_constraintStart_toStartOf="@+id/seekBarRudder">
+
+                            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                                android:id="@+id/seekBarThrottle"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:max="100"
+                                android:min="-100"
+                                android:progress="0"
+                                android:splitTrack="false"
+                                app:seekBarRotation="CW270" />
+                        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:id="@+id/throttleLayout"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/rudderLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
+                    android:layout_weight="2"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-
                     <TextView
-                        android:id="@+id/textThrottle"
+                        android:id="@+id/textRudder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/throttle_text"
+                        android:text="@string/rudder_text"
                         android:textAlignment="center"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/textThrottleValue"
-                        app:layout_constraintEnd_toEndOf="@+id/textThrottleValue"
-                        app:layout_constraintStart_toStartOf="@+id/textThrottleValue" />
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textThrottleValue"
+                        android:id="@+id/textRudderValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textAlignment="center"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/verticalSeekBarWrapper"
-                        app:layout_constraintEnd_toEndOf="@+id/verticalSeekBarWrapper"
-                        app:layout_constraintStart_toStartOf="@+id/verticalSeekBarWrapper" />
+                        android:textStyle="bold" />
 
-                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
-                        android:id="@+id/verticalSeekBarWrapper"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/scroll_bar_portrait_size"
-                        android:layout_marginBottom="24dp"
-                        app:layout_constraintBottom_toTopOf="@+id/seekBarRudder"
-                        app:layout_constraintEnd_toStartOf="@+id/seekBarRudder"
-                        app:layout_constraintHorizontal_bias="0.447"
-                        app:layout_constraintStart_toStartOf="@+id/seekBarRudder">
+                    <SeekBar
+                        android:id="@+id/seekBarRudder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:min="-100"
+                        android:progress="0" />
 
-                        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
-                            android:id="@+id/seekBarThrottle"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:max="100"
-                            android:min="-100"
-                            android:progress="0"
-                            android:splitTrack="false"
-                            app:seekBarRotation="CW270" />
-                    </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1" />
+
 
                 </LinearLayout>
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/rudderLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textRudder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/rudder_text"
-                    android:textAlignment="center"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textRudderValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textAlignment="center"
-                    android:textStyle="bold" />
-
-                <SeekBar
-                    android:id="@+id/seekBarRudder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="100"
-                    android:min="-100"
-                    android:progress="0" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_weight="1" />
-
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

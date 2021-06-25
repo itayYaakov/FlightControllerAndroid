@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
     <data>
+
+        <import type="com.example.flightgearcontroller.model.Model" />
+
+        <import type="com.example.flightgearcontroller.viewModel.ViewModel" />
 
         <variable
             name="model"
@@ -16,6 +19,11 @@
             name="viewModel"
             type="com.example.flightgearcontroller.viewModel.ViewModel" />
     </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -58,10 +66,10 @@
                 android:digits="0123456789"
                 android:ems="10"
                 android:hint="@string/port_hint"
-                android:text="@={viewModel.port}"
                 android:importantForAutofill="no"
                 android:inputType="phone"
                 android:maxLength="5"
+                android:text="@={viewModel.port}"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -204,5 +212,5 @@
 
     </LinearLayout>
 
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
