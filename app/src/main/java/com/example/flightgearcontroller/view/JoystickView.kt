@@ -11,10 +11,8 @@ import kotlin.math.*
 
 
 class JoystickView : View {
-    val colorArray = intArrayOf(Color.RED, Color.GREEN, Color.BLUE)
-    val positionArray = floatArrayOf(0F, 0.5F, 0.6F)
-    val startColor = Color.RED
-    val endColor = Color.BLUE
+    public var sendUpdateEvent: IChange? = null
+
     private var mContext: Context? = context
     private var mLayout: ViewGroup? = null
     private var params: ViewGroup.LayoutParams? = null
@@ -24,8 +22,6 @@ class JoystickView : View {
 
     private var touchState = false
 
-    private var STICK_ALPHA = 200
-    private var LAYOUT_ALPHA = 200
     private var OFFSET = 0
 
     private var stickWidth = 0
@@ -36,10 +32,12 @@ class JoystickView : View {
     private var positionY = 0
     private var maxX: Float = 0f
     private var maxY: Float = 0f
-    private var minDistance: Float = 0f
     private var maxDistance: Float = 0f
+    private var elevator: Float = 0f
+    private var aileron: Float = 0f
     private var distance = 0f
     private var angle = 0f
+    private var threshold = 0f
     private var maxRotationAngle = 11.0f
 
     constructor(context: Context?) : super(context)
@@ -49,6 +47,7 @@ class JoystickView : View {
         attrs,
         defStyleAttr
     )
+
 
     fun createJoystick(layout: ViewGroup?) {
         layout?.let {
@@ -67,91 +66,50 @@ class JoystickView : View {
                 if (e.action == MotionEvent.ACTION_UP) {
                     v.performClick()
                 }
+                sendUpdateEvent?.onChange("elevator", elevator)
+                sendUpdateEvent?.onChange("aileron", aileron)
                 true
             }
-//        }
             mEnabled = true;
         }
-    }
-
-    fun getOffset(): Int {
-        return OFFSET
     }
 
     fun setOffset(offset: Int) {
         OFFSET = offset
     }
 
-    fun getJoystickX(): Int {
-        if (distance > this.minDistance && touchState) {
-            return positionX * (1)
-        } else {
-            return 0
-        }
-    }
-
-    fun getJoystickY(): Int {
-        if (distance > this.minDistance && touchState) {
-            return positionY * (-1)
-        } else {
-            return 0
-        }
-    }
-
-    fun setMinimumDistance(minDistance: Float) {
-        this.minDistance = minDistance
-    }
-
-    fun getDistance(): Float {
-        if (distance > this.minDistance && touchState) {
-            return distance
-        } else {
-            return 0F
-        }
-    }
-
-    fun getAngle(): Float {
-        if (distance > this.minDistance && touchState) {
-            return angle
-        } else {
-            return 0F
-        }
+    fun setThreshold (threshold : Float) {
+        this.threshold = threshold
     }
 
     fun setStickSize(width: Int, height: Int) {
-        stickWidth = width
-        stickHeight = height
+        this.stickWidth = width
+        this.stickHeight = height
     }
 
     fun setLayoutSize(width: Int, height: Int) {
-        layoutWidth = width
-        layoutHeight = height
-        maxX = (width / 2 - OFFSET).toFloat()
-        maxY = (height / 2 - OFFSET).toFloat()
+        this.layoutWidth = width
+        this.layoutHeight = height
+        this.maxX = (width / 2 - this.OFFSET).toFloat()
+        this.maxY = (height / 2 - this.OFFSET).toFloat()
     }
 
-    fun getLayoutWidth(): Int {
-        return params!!.width
-    }
+    var angleIntensity: Float = 0.0f
+    var distanceIntensity: Float = 0.0f
 
-    fun getLayoutHeight(): Int {
-        return params!!.height
-    }
-
-    fun getPosition(): IntArray? {
-        if (distance > this.minDistance && touchState) {
-            return intArrayOf(positionX, positionY)
-        } else {
-            return intArrayOf(0, 0)
-        }
-    }
-
-    var intensity: Float = 0.0f
     private fun drawStick(event: MotionEvent) {
-        positionX = (event.x - params!!.width / 2).toInt()
-        positionY = (event.y - params!!.height / 2).toInt()
+        val halfWidth: Float = (params!!.width / 2).toFloat()
+        val halfHeight: Float = (params!!.height / 2).toFloat()
+        positionX = (event.x - halfWidth).toInt()
+        positionY = (event.y - halfHeight).toInt()
         distance = sqrt(positionX.toDouble().pow(2.0) + positionY.toDouble().pow(2.0)).toFloat()
         distance = min(distance, maxDistance)
+
+        aileron = map(positionX.toFloat(), -halfWidth, halfWidth, -1f, 1f)
+        elevator = -map(positionY.toFloat(), -halfHeight, halfHeight, -1f, 1f)
+
+        if (abs(elevator) < threshold) elevator = 0.0f
+        if (abs(aileron) < threshold) aileron = 0.0f
 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -174,30 +132,31 @@ class JoystickView : View {
                         val posAngle = calculateAngle(positionX.toFloat(), positionY.toFloat(), quadrant)
                         x = (cos(Math.toRadians(posAngle)) * maxX).toFloat()
                         y = (sin(Math.toRadians(posAngle)) * maxY).toFloat()
-                        x += (params!!.width / 2).toFloat()
-                        y += (params!!.height / 2).toFloat()
+                        x += halfWidth
+                        y += halfHeight
                     }
                     draw!!.position(x.toDouble(), y.toDouble())
                     draw()
 
-                    intensity = ((cos(Math.toRadians(angle.toDouble() * 2)) + 1.0f) / 2.0f).toFloat()
+                    angleIntensity = ((cos(Math.toRadians(angle.toDouble() * 2)) + 1.0f) / 2.0f).toFloat()
+                    distanceIntensity = distance / maxX
                     when (quadrant) {
                         1 -> {
-                            mLayout!!.rotationX = map(angle, 0f, 90f, 0.0f, maxRotationAngle)
-                            mLayout!!.rotationY = map(distance, 0.0f, maxX, 0.0f, maxRotationAngle) * intensity
+                            mLayout!!.rotationX = map(angle, 0f, 90f, 0.0f, maxRotationAngle) * distanceIntensity
+                            mLayout!!.rotationY = map(distance, 0.0f, maxX, 0.0f, maxRotationAngle) * angleIntensity
                         }
                         2 -> {
-                            mLayout!!.rotationX = map(angle, 90f, 180f, maxRotationAngle, 0.0f)
-                            mLayout!!.rotationY = -map(distance, 0.0f, maxX, 0.0f, maxRotationAngle) * intensity
+                            mLayout!!.rotationX = map(angle, 90f, 180f, maxRotationAngle, 0.0f) * distanceIntensity
+                            mLayout!!.rotationY = -map(distance, 0.0f, maxX, 0.0f, maxRotationAngle) * angleIntensity
                         }
                         3 -> {
-                            mLayout!!.rotationX = -map(angle, 180f, 270f, 0.0f, maxRotationAngle)
+                            mLayout!!.rotationX = -map(angle, 180f, 270f, 0.0f, maxRotationAngle) * distanceIntensity
                             mLayout!!.rotationY =
-                                -map(distance, 0.0f, maxX, 0.0f, maxRotationAngle) * intensity
+                                -map(distance, 0.0f, maxX, 0.0f, maxRotationAngle) * angleIntensity
                         }
                         4 -> {
-                            mLayout!!.rotationX = -map(angle, 270f, 360f, maxRotationAngle, 0.0f)
-                            mLayout!!.rotationY = map(distance, 0.0f, maxX, 0.0f, maxRotationAngle) * intensity
+                            mLayout!!.rotationX = -map(angle, 270f, 360f, maxRotationAngle, 0.0f) * distanceIntensity
+                            mLayout!!.rotationY = map(distance, 0.0f, maxX, 0.0f, maxRotationAngle) * angleIntensity
                         }
                     }
                 }
@@ -261,7 +220,8 @@ class JoystickView : View {
             canvas.drawText("ANG=%f".format(angle), myX.toFloat(), myY.toFloat() + 460, paint2)
             canvas.drawText("rY %f".format(mLayout!!.rotationY), myX.toFloat(), myY.toFloat() - 20, paint2)
             canvas.drawText("rX %f".format(mLayout!!.rotationX), myX.toFloat(), myY.toFloat() - 60, paint2)
-            canvas.drawText("in %f".format(intensity), myX.toFloat(), myY.toFloat() - 100, paint2)
+            canvas.drawText("a in %f".format(angleIntensity), myX.toFloat(), myY.toFloat() - 100, paint2)
+            canvas.drawText("d in %f".format(distanceIntensity), myX.toFloat(), myY.toFloat() - 140, paint2)
         }
 
         fun position(pos_x: Double, pos_y: Double) {

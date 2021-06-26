@@ -8,10 +8,15 @@ import android.widget.TextView
 
 class SlidersView() : SeekBar.OnSeekBarChangeListener {
 
+    public var sendUpdateEvent: IChange? = null
+
     private var rudderText: TextView? = null
     private var throttleText: TextView? = null
     private var rudderSeekBar: SeekBar? = null
     private var throttleSeekBar: SeekBar? = null
+    private var throttle: Float = 0f
+    private var rudder: Float = 0f
+
 
 
     constructor(context: Context?) : this() {
@@ -29,13 +34,18 @@ class SlidersView() : SeekBar.OnSeekBarChangeListener {
 
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-        val progressF : String = (progress / 100f).toString()
+        val progressF: Float = progress / 100f
+        val progressS: String = progressF.toString()
         when (seekBar) {
             throttleSeekBar -> {
-                throttleText!!.text = progressF
+                throttle = progressF
+                throttleText!!.text = progressS
+                sendUpdateEvent?.onChange("throttle", progressF)
             }
             rudderSeekBar -> {
-                rudderText!!.text = progressF
+                rudder = progressF
+                rudderText!!.text = progressS
+                sendUpdateEvent?.onChange("rudder", progressF)
             }
         }
     }

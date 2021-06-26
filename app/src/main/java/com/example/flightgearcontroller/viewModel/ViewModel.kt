@@ -3,25 +3,37 @@ package com.example.flightgearcontroller.viewModel
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.lifecycle.MutableLiveData
+import com.example.flightgearcontroller.model.Model
 
-class ViewModel : BaseObservable() {
+
+class ViewModel(model: Model) : BaseObservable() {
+
+    var model: Model
 
     @Bindable
     val ip = MutableLiveData<String>()
+
     @Bindable
     val port = MutableLiveData<String>()
-
-    val aileron = MutableLiveData<Float>()
-    val throttle = MutableLiveData<Float>()
-    val rudder = MutableLiveData<Float>()
-    val elevator = MutableLiveData<Float>()
 
     init {
         ip.value = ""
         port.value = ""
-        aileron.value = 0.0f
-        throttle.value = 0.0f
-        rudder.value = 0.0f
-        elevator.value = 0.0f
+        ip.value = "192.168.1.90"
+        port.value = "14069"
+        this.model = model
+    }
+
+    fun onConnectClick(): Boolean {
+        model.connectToFlightGear(this.ip.value, this.port.value)
+        return true
+    }
+
+    fun closeConnection() {
+        model.closeConnection()
+    }
+
+    fun sendCommand(name: String, value: Float) {
+        model.sendCommand(name, value)
     }
 }

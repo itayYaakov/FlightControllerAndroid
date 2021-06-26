@@ -49,9 +49,9 @@
                     android:digits="0123456789."
                     android:ems="10"
                     android:hint="@string/ip_hint"
-                    android:text="@={viewModel.ip}"
                     android:importantForAutofill="no"
                     android:inputType="number|numberDecimal"
+                    android:text="@={viewModel.ip}"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +81,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="@string/connect_button_text"
+                    android:text="@{model.isConnected() ? @string/button_text_off : @string/button_text_on}"
+                    android:textColor="@{model.isConnected() ? @color/md_red_800 : @color/md_green_800}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -159,7 +160,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:max="100"
-                                android:min="-100"
+                                android:min="0"
                                 android:progress="0"
                                 android:splitTrack="false"
                                 app:seekBarRotation="CW270" />
@@ -203,7 +204,7 @@
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="120dp"
                         android:layout_weight="1" />
 
 
