@@ -18,13 +18,14 @@ class MainActivity : AppCompatActivity() {
 
     private var relativeLayoutJoystick: RelativeLayout? = null
     var joystick: JoystickView? = null
-    var sliders: SlidersView? = null
+    var seekBars: SeekBarsView? = null
     var viewModel: ViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // data binding settings
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val model = Model()
         viewModel = ViewModel(model)
@@ -34,21 +35,25 @@ class MainActivity : AppCompatActivity() {
 
         binding.executePendingBindings()
 
-        sliders = SlidersView(this)
-        sliders!!.sendUpdateEvent = IChange { name, value ->
+        // create sliders object
+        seekBars = SeekBarsView(this)
+        // listen to values change of sliders
+        seekBars!!.sendUpdateEvent = IChange { name, value ->
             viewModel!!.sendCommand(name, value)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel?.closeConnection()
+        // close connection
+        viewModel?.stopThread()
     }
 
     override fun onStart() {
         super.onStart()
         relativeLayoutJoystick = findViewById<View>(R.id.relativeLayoutJoystick) as RelativeLayout
 
+        // create joystick object
         relativeLayoutJoystick?.post {
             val layoutWidth = relativeLayoutJoystick!!.width
             val layoutHeight = relativeLayoutJoystick!!.height
@@ -56,12 +61,15 @@ class MainActivity : AppCompatActivity() {
             val squaredSmallSize = (0.25f * squaredSize).toInt()
             val offset = (squaredSmallSize / 2f).toInt()
             joystick = JoystickView(applicationContext)
+            joystick!!.setXAxisName("aileron")
+            joystick!!.setYAxisName("elevator")
             joystick!!.setOffset(offset)
             joystick!!.setStickSize(squaredSmallSize, squaredSmallSize)
             joystick!!.setLayoutSize(squaredSize, squaredSize)
-            joystick!!.setThreshold(0.07f)
+            joystick!!.setThreshold(0.2f)
             joystick!!.createJoystick(relativeLayoutJoystick)
 
+            // listen to values change on joystick
             joystick!!.sendUpdateEvent = IChange { name, value ->
                 viewModel!!.sendCommand(name, value)
             }
@@ -70,7 +78,8 @@ class MainActivity : AppCompatActivity() {
 
         val connectButton: Button = findViewById<View>(R.id.button) as Button
         connectButton.setOnClickListener(
-            View.OnClickListener { v: View? ->
+            View.OnClickListener {
+                // activate view model connect method
                 viewModel?.onConnectClick()
                 // hide keyboard
                 this.currentFocus?.let { v ->

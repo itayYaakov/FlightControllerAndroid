@@ -6,27 +6,20 @@ import android.widget.SeekBar
 import android.widget.TextView
 
 
-class SlidersView() : SeekBar.OnSeekBarChangeListener {
+class SeekBarsView() : SeekBar.OnSeekBarChangeListener {
 
     public var sendUpdateEvent: IChange? = null
 
-    private var rudderText: TextView? = null
-    private var throttleText: TextView? = null
     private var rudderSeekBar: SeekBar? = null
     private var throttleSeekBar: SeekBar? = null
-    private var throttle: Float = 0f
-    private var rudder: Float = 0f
-
-
 
     constructor(context: Context?) : this() {
         val a: Activity? = context as Activity
         if (a != null) {
             rudderSeekBar = a.findViewById<SeekBar>(com.example.flightgearcontroller.R.id.seekBarRudder) as SeekBar
             throttleSeekBar = a.findViewById<SeekBar>(com.example.flightgearcontroller.R.id.seekBarThrottle) as SeekBar
-            rudderText = a.findViewById<TextView>(com.example.flightgearcontroller.R.id.textRudderValue) as TextView
-            throttleText = a.findViewById<TextView>(com.example.flightgearcontroller.R.id.textThrottleValue) as TextView
 
+            // set this class as event listener class for seekbars
             rudderSeekBar!!.setOnSeekBarChangeListener(this)
             throttleSeekBar!!.setOnSeekBarChangeListener(this)
         }
@@ -34,19 +27,12 @@ class SlidersView() : SeekBar.OnSeekBarChangeListener {
 
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        // convert value to float between -1.0/0-1.0
         val progressF: Float = progress / 100f
-        val progressS: String = progressF.toString()
+        // send value change update
         when (seekBar) {
-            throttleSeekBar -> {
-                throttle = progressF
-                throttleText!!.text = progressS
-                sendUpdateEvent?.onChange("throttle", progressF)
-            }
-            rudderSeekBar -> {
-                rudder = progressF
-                rudderText!!.text = progressS
-                sendUpdateEvent?.onChange("rudder", progressF)
-            }
+            throttleSeekBar -> sendUpdateEvent?.onChange("throttle", progressF)
+            rudderSeekBar -> sendUpdateEvent?.onChange("rudder", progressF)
         }
     }
 

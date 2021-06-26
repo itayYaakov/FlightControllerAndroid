@@ -137,7 +137,7 @@
                             android:id="@+id/textThrottleValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="@={viewModel.throttleText}"
                             android:textAlignment="center"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toTopOf="@+id/verticalSeekBarWrapper"
@@ -189,7 +189,7 @@
                         android:id="@+id/textRudderValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="@={viewModel.rudderText}"
                         android:textAlignment="center"
                         android:textStyle="bold" />
 
