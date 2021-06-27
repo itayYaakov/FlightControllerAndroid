@@ -27,8 +27,6 @@ class ViewModel(model: Model) : BaseObservable() {
         // init default values
         ip.value = ""
         port.value = ""
-        ip.value = "192.168.1.90"
-        port.value = "14069"
         this.model = model
     }
 
