@@ -17,21 +17,27 @@ You will need to paste this setting into your flightGear simulator setting tab:
 --telnet=socket,in,10,127.0.0.1,5678,tcp
 (5678 or any other port). 
 
-![alt text](https://github.com/yana-sidnich/pictures/blob/main/pic1.png)
+<p align="center">
+  <img width="700" src="https://github.com/yana-sidnich/pictures/blob/main/pic1.png">  
+</p>
 
 After you applied the correct setting start the simulator, when you see the plane on the runway you can connect to the simulator from our app.
 
 
 ## App Preview
-![alt text](https://github.com/yana-sidnich/pictures/blob/main/pic3.png)
+<p align="center">
+  <img width="200" height="400" src="https://github.com/yana-sidnich/pictures/blob/main/pic3.png">  
+</p>
 
 Our app has one main screen. 
 At the top of the screen you can see the connection section. In order to connect to the simulator you will need to enter the IP of the mechine that is running the simulator, and the PORT number you chose for the simulator settings, make sure its the same port number !  
 To complete the connection press on the **connect button**. You can disconnect from the simulator at any given momment by simply pressing the **disconnect button**. 
 
-## Flying The Plane
+## Flying The Plane  
 
-![alt text](https://github.com/yana-sidnich/pictures/blob/main/pic4.png)
+<p align="center">
+  <img width="500" src="https://github.com/yana-sidnich/pictures/blob/main/pic4.png">  
+</p>
 
 After you connected to the simulator you can start flying the plane:
 - In the tabs at top section of the screen click on the `Cessna C172P` tab, and click on the `Autostart`, now the plane is ready to fly.
@@ -47,8 +53,10 @@ After you connected to the simulator you can start flying the plane:
 
 
 ## Design And Class Diagram  
-full UML available in [a relative link](FlightControllerAndroid/blob/main/DesignExplanation/UML%20class.pdf)
-![alt text](https://github.com/yana-sidnich/pictures/blob/main/UML%20class%20-%20yana%20(1).png)
+full UML available in [uml pdf file](DesignExplanation/UML%20class.pdf)
+<p align="center">
+  <img width="700" src="https://github.com/yana-sidnich/pictures/blob/main/UML%20class%20-%20yana%20(1).png">  
+</p>
 
 In the image above you can see a UML class diagram of our project. This diagram showcases the relations and connection between diffrent classes in our project.
 In this project we used the MVVM design pattern. As shown in the class diagram, the project files were organized in three packages:
@@ -58,6 +66,6 @@ In this project we used the MVVM design pattern. As shown in the class diagram, 
 
 In the following link you can watch a video getting into more details about the design of the application and the MVVM architecture:
 
-Presentation avilable in: [a relative link](FlightControllerAndroid/blob/main/DesignExplanation/presentation.pptx)  
-Video available in: [a relative link](FlightControllerAndroid/blob/main/DesignExplanation/Adv3.mp4)  
+Presentation avilable in: [presentation](DesignExplanation/presentation.pptx)  
+Video available in: [demo video](DesignExplanation/Adv3.mp4)  
 
