@@ -11,10 +11,11 @@ Before using this application, we need the to install the following:
  - FlightGear Simulator:
    - Version 2020.3.x Download [here](https://www.flightgear.org/download/)
    - Version 2019.1.2 Download [here](https://sourceforge.net/projects/flightgear/files/release-2019.1/)
- - TO run the application we recommend installing android studio and clonning the code from this repository.
+ - To run the application we recommend installing android studio and clonning the code from this repository.
    
-In order to run our app and connect to the simulator you will need to paste this setting into your flightGear simulator setting tab:
---telnet=socket,in,10,127.0.0.1,6400,tcp (6400 is just an option for the port number, choose any port available on your machine). 
+You will need to paste this setting into your flightGear simulator setting tab:
+--telnet=socket,in,10,127.0.0.1,5678,tcp
+(5678 is just an option for the port number, choose any port available on your machine). 
 
 ![alt text](https://github.com/yana-sidnich/pictures/blob/main/pic1.png)
 
@@ -43,3 +44,19 @@ After you connected to the simulator you can start flying the plane:
   - to control the Elevator value - move the joystick up and down.
   - to control the Thruttle value - move the bar that is located to the left of the joystick.
   - to control the Rudder value - move the bar that is located below the joystick.
+
+
+## Design And Class Diagram
+
+![alt text](https://github.com/yana-sidnich/pictures/blob/main/UML%20class%20-%20yana%20(1).png)
+
+In the image above you can see a UML class diagram of our project. This diagram showcases the relations and connection between diffrent classes in our project.
+In this project we used the MVVM design pattern. As shown in the class diagram, the project files were organized in three packages:
+- The model package.
+- The view package.
+- The viewModel package.
+
+In the following link you can watch a video getting into more details about the design of the application and the MVVM architecture:
+
+You can get the presentation you see on the video, in the following link:
+
