@@ -26,8 +26,8 @@ After you applied the correct setting start the simulator, when you see the plan
 ![alt text](https://github.com/yana-sidnich/pictures/blob/main/pic3.png)
 
 Our app has one main screen. 
-At the top of the screen you can see the connection section. In order to connect to the simulator you will need to enter the IP of the mechine that is running the simulator, and the PORT number you chose for the simulator settings, make sure its the same port number !
-To complete the connection press on the connect button. You can disconnect from the simulator at any given momment by simply pressing the disconnect button. 
+At the top of the screen you can see the connection section. In order to connect to the simulator you will need to enter the IP of the mechine that is running the simulator, and the PORT number you chose for the simulator settings, make sure its the same port number !  
+To complete the connection press on the **connect button**. You can disconnect from the simulator at any given momment by simply pressing the **disconnect button**. 
 
 ## Flying The Plane
 
@@ -35,7 +35,7 @@ To complete the connection press on the connect button. You can disconnect from 
 
 After you connected to the simulator you can start flying the plane:
 - In the tabs at top section of the screen click on the `Cessna C172P` tab, and click on the `Autostart`, now the plane is ready to fly.
-- Set the thruttle bar to its max in order to start the engine.
+- Set the throttle bar to its max in order to start the engine.
 - Use the rudder bar to keep the plane in the center of the runway.
 - Wait for the plane to gain enough speed.
 - Pull the joystick down, this will make the plane start ascending.
@@ -46,8 +46,8 @@ After you connected to the simulator you can start flying the plane:
   - to control the Rudder value - move the bar that is located below the joystick.
 
 
-## Design And Class Diagram
-
+## Design And Class Diagram  
+full UML available in [a relative link](FlightControllerAndroid/blob/main/DesignExplanation/UML%20class.pdf)
 ![alt text](https://github.com/yana-sidnich/pictures/blob/main/UML%20class%20-%20yana%20(1).png)
 
 In the image above you can see a UML class diagram of our project. This diagram showcases the relations and connection between diffrent classes in our project.
@@ -58,5 +58,6 @@ In this project we used the MVVM design pattern. As shown in the class diagram, 
 
 In the following link you can watch a video getting into more details about the design of the application and the MVVM architecture:
 
-You can get the presentation you see on the video, in the following link:
+Presentation avilable in: [a relative link](FlightControllerAndroid/blob/main/DesignExplanation/presentation.pptx)  
+Video available in: [a relative link](FlightControllerAndroid/blob/main/DesignExplanation/Adv3.mp4)  
 
