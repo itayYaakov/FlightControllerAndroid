@@ -12,7 +12,8 @@ Before using this application, we need the to install the following:
    - Version 2020.3.x Download [here](https://www.flightgear.org/download/)
    - Version 2019.1.2 Download [here](https://sourceforge.net/projects/flightgear/files/release-2019.1/)
    
-In order two run our app correctly you will need to paste this setting into your flightGear simulator setting: --telnet=socket,in,10,127.0.0.1,6400,tcp , 6400 is just an option for the port number, choose any port avilable on your machine.
+In order two run our app correctly you will need to paste this setting into your flightGear simulator setting:
+--telnet=socket,in,10,127.0.0.1,6400,tcp , 6400 is just an option for the port number, choose any port avilable on your machine.
 After you applied the correct setting start the simulator. 
 
 ![alt text](https://github.com/yana-sidnich/pictures/blob/main/pic1.png)
