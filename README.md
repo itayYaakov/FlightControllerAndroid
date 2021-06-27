@@ -1,8 +1,8 @@
 # Flight Control Android Application​
 
 
-We created a joystick app that can control a plane inside the flight gear simulator.​
-The app was written for android devices using Kotlin and implamenting the MVVM design pattern​
+We created a joystick app that can control a plane inside the flight gear simulator.  
+Written for android devices using Kotlin and implamenting the MVVM design pattern    
 The app was created as a part of our Advanced Programming course. 
 
 ## FlightGear Installation & Configuration
@@ -11,11 +11,11 @@ Before using this application, we need the to install the following:
  - FlightGear Simulator:
    - Version 2020.3.x Download [here](https://www.flightgear.org/download/)
    - Version 2019.1.2 Download [here](https://sourceforge.net/projects/flightgear/files/release-2019.1/)
- - To run the application we recommend installing android studio and clonning the code from this repository.
+ - To run the application we recommend installing **android studio** and clonning the code from this repository.
    
-You will need to paste this setting into your flightGear simulator setting tab:
+You will need to paste this setting into your flightGear simulator setting tab:  
 --telnet=socket,in,10,127.0.0.1,5678,tcp
-(5678 is just an option for the port number, choose any port available on your machine). 
+(5678 or any other port). 
 
 ![alt text](https://github.com/yana-sidnich/pictures/blob/main/pic1.png)
 
